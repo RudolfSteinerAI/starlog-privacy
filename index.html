@@ -24,7 +24,7 @@
 <p>STARLOG is a personal log that stays on your device. This page says what the app stores, and what it does with the microphone, camera, speech, export, and PIN.</p>
 
 <h2>Entries stay on the device</h2>
-<p>Log text, tags, classification, stardate, officer or vessel name, the PIN hash, audio, and video are stored in the app’s private storage on the device. There is no STARLOG account. There is no STARLOG server for logs.</p>
+<p>Log text, tags, classification, stardate, officer or vessel name, audio, and video are stored in the app’s private storage on the device. There is no STARLOG account. There is no STARLOG server for logs.</p>
 <p>STARLOG does not sell data and does not show ads. It does not upload your log entries. Android backup and device-to-device transfer of app data are turned off.</p>
 
 <h2>Microphone and camera</h2>
@@ -42,7 +42,9 @@
 <p>A JSON copy, a file export, or the system share sheet runs only when you tap it. The JSON export is text and metadata only. Audio and video stay on the device and are not included in the JSON file.</p>
 
 <h2>PIN</h2>
-<p>You can set an optional PIN. STARLOG stores a hash of that PIN on the device (SHA-256) and uses it as a lock. The PIN hash does not encrypt your log entries. STARLOG cannot recover a forgotten PIN.</p>
+<p>You can set an optional PIN. When a PIN is set, the log archive is encrypted at rest with AES-256-GCM. Argon2id wraps a data key, and Android Keystore holds key material on the device. A wrong PIN fails the authentication tag, so the archive does not open. STARLOG cannot recover a forgotten PIN.</p>
+<p>If you do not set a PIN, log entries stay on the device as plaintext. Clearing a PIN requires the current PIN, and that writes the archive back as plaintext on the device.</p>
+<p>An older install that stored only a hash of the PIN was not encrypted. That lock stays closed until the first successful unlock, which moves the archive into the encrypted vault. STARLOG treats the lock as secure when that vault is present.</p>
 <footer>
   <p><a href="app.html">About STARLOG</a></p>
 </footer>
