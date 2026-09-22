@@ -111,9 +111,10 @@
   </ul>
 
   <h2>PIN</h2>
-  <p>An optional PIN encrypts the archive at rest (AES-256-GCM). Argon2id wraps a data key, and Android Keystore holds key material. A wrong PIN fails the authentication tag. STARLOG cannot recover a forgotten PIN. With no PIN, logs stay on the device as plaintext. Clearing the PIN requires the current PIN and a warning that the archive will be stored as plaintext again.</p>
-  <p class="note">Optional biometric unlock is available only after a PIN is set. STARLOG does not receive face or fingerprint templates. The device Keystore and Class 3 biometrics handle that unlock on the device.</p>
-  <p class="note">An older hash-only lock stays closed until the first successful unlock moves the archive into the encrypted vault.</p>
+  <p>On the Android app, an optional PIN encrypts the archive at rest (AES-256-GCM). Argon2id wraps a data key, and Android Keystore holds key material. A wrong PIN fails the authentication tag. STARLOG cannot recover a forgotten PIN. With no PIN, logs stay on the device as plaintext. Clearing the PIN requires the current PIN and a warning that the archive will be stored as plaintext again.</p>
+  <p class="note">In the browser, an optional PIN encrypts that web archive at rest (WebCrypto PBKDF2 and AES-GCM). It is secure only when a vault exists. A legacy hash-only lock stays locked, with plaintext entries, until you migrate. Clearing the PIN requires the current PIN and returns the archive to plaintext. There is no STARLOG server.</p>
+  <p class="note">Optional biometric unlock on the Android app is available only after a PIN is set. STARLOG does not receive face or fingerprint templates. The device Keystore and Class 3 biometrics handle that unlock on the device. The web archive does not offer biometric unlock.</p>
+  <p class="note">An older hash-only lock on the Android app stays closed, and the archive stays plaintext, until the first successful unlock moves it into the encrypted vault. That lock is secure only when the vault is present.</p>
 
   <h2>Dictate</h2>
   <p>Dictate is optional. STARLOG uses speech only when the device reports that on-device speech is available. It does not silently fall back to a cloud speech-to-text service, and it does not send that audio to a STARLOG server.</p>
@@ -121,7 +122,7 @@
 
   <footer>
     <p>Package <code>com.starlog.app</code></p>
-    <p>The <a href="./">privacy policy</a> is the authoritative description of what the app stores.</p>
+    <p>The <a href="./">privacy policy</a> is the authoritative description of what STARLOG stores.</p>
   </footer>
 </main>
 </body>
