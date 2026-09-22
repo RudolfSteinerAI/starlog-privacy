@@ -111,7 +111,8 @@
   </ul>
 
   <h2>PIN</h2>
-  <p>An optional PIN encrypts the archive at rest (AES-256-GCM). Argon2id wraps a data key, and Android Keystore holds key material. A wrong PIN fails the authentication tag. STARLOG cannot recover a forgotten PIN. With no PIN, logs stay on the device as plaintext. Clearing the PIN requires the current PIN and writes plaintext again.</p>
+  <p>An optional PIN encrypts the archive at rest (AES-256-GCM). Argon2id wraps a data key, and Android Keystore holds key material. A wrong PIN fails the authentication tag. STARLOG cannot recover a forgotten PIN. With no PIN, logs stay on the device as plaintext. Clearing the PIN requires the current PIN and a warning that the archive will be stored as plaintext again.</p>
+  <p class="note">Optional biometric unlock is available only after a PIN is set. STARLOG does not receive face or fingerprint templates. The device Keystore and Class 3 biometrics handle that unlock on the device.</p>
   <p class="note">An older hash-only lock stays closed until the first successful unlock moves the archive into the encrypted vault.</p>
 
   <h2>Dictate</h2>
