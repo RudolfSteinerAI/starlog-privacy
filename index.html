@@ -21,10 +21,10 @@
 <h1>STARLOG privacy policy</h1>
 <p class="meta">Package <code>com.starlog.app</code> · Updated 22 September 2026</p>
 
-<p>STARLOG is a personal log that stays on your device. This page says what the app stores, and what it does with the microphone, camera, speech, export, PIN, and biometric unlock.</p>
+<p>STARLOG is a personal log. The Android app keeps entries on the device. The web archive stays in the browser you use. This page says what the app stores, and what it does with the microphone, camera, speech, export, PIN, and biometric unlock. It also says how an optional PIN treats the web archive.</p>
 
 <h2>Entries stay on the device</h2>
-<p>Log text, tags, classification, stardate, officer or vessel name, audio, and video are stored in the app’s private storage on the device. There is no STARLOG account. There is no STARLOG server for logs.</p>
+<p>Log text, tags, classification, stardate, officer or vessel name, audio, and video are stored in the app’s private storage on the device. There is no STARLOG account. There is no STARLOG server for logs. The web archive stays in the browser you use. STARLOG does not upload it.</p>
 <p>STARLOG does not sell data and does not show ads. It does not upload your log entries. Android backup and device-to-device transfer of app data are turned off.</p>
 
 <h2>Microphone and camera</h2>
@@ -42,12 +42,13 @@
 <p>A JSON copy, a file export, or the system share sheet runs only when you tap it. The JSON export is text and metadata only. Audio and video stay on the device and are not included in the JSON file.</p>
 
 <h2>PIN</h2>
-<p>You can set an optional PIN. When a PIN is set, the log archive is encrypted at rest with AES-256-GCM. Argon2id wraps a data key, and Android Keystore holds key material on the device. A wrong PIN fails the authentication tag, so the archive does not open. STARLOG cannot recover a forgotten PIN.</p>
-<p>If you do not set a PIN, log entries stay on the device as plaintext. Clearing a PIN requires the current PIN. STARLOG warns you that clearing it writes the archive back as plaintext on the device.</p>
-<p>An older install that stored only a hash of the PIN was not encrypted. That lock stays closed until the first successful unlock, which moves the archive into the encrypted vault. STARLOG treats the lock as secure when that vault is present.</p>
+<p>You can set an optional PIN. STARLOG cannot recover a forgotten PIN.</p>
+<p><strong>Android app.</strong> When a PIN is set, the log archive is encrypted at rest with AES-256-GCM. Argon2id wraps a data key, and Android Keystore holds key material on the device. A wrong PIN fails the authentication tag, so the archive does not open. If you do not set a PIN, log entries stay on the device as plaintext. Clearing a PIN requires the current PIN. STARLOG warns you that clearing it writes the archive back as plaintext on the device.</p>
+<p>An older Android install that stored only a hash of the PIN was not encrypted. That lock stays closed, and the archive stays plaintext, until the first successful unlock moves it into the encrypted vault. STARLOG treats the lock as secure only when that vault is present.</p>
+<p><strong>Web archive.</strong> An optional PIN encrypts the archive at rest in that browser. WebCrypto derives a key with PBKDF2 and encrypts with AES-GCM. There is no STARLOG server for that archive. STARLOG treats it as secure only when a vault exists. A legacy hash-only lock stays locked, and the entries stay plaintext, until you migrate them into the vault. Clearing the PIN requires the current PIN and writes the archive back as plaintext in that browser.</p>
 
 <h2>Biometric unlock</h2>
-<p>Biometric unlock is optional, and only after a PIN is set. Face or fingerprint can then unlock the app on this device. STARLOG does not receive face or fingerprint templates. Unlock uses the device Keystore and Class 3 biometrics only. STARLOG does not upload biometric data.</p>
+<p>Biometric unlock is optional on the Android app, and only after a PIN is set. It is not available for the web archive. Face or fingerprint can then unlock the app on this device. STARLOG does not receive face or fingerprint templates. Unlock uses the device Keystore and Class 3 biometrics only. STARLOG does not upload biometric data.</p>
 <p>The PIN still encrypts the archive at rest when it is set. Biometric unlock does not replace that PIN. Clearing the PIN still requires the current PIN, and STARLOG still warns you that the archive will be stored as plaintext.</p>
 <footer>
   <p><a href="app.html">About STARLOG</a></p>
