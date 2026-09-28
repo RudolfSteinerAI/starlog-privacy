@@ -116,9 +116,10 @@
   <p class="note">Optional biometric unlock on the Android app is available only after a PIN is set. STARLOG does not receive face or fingerprint templates. The device Keystore and Class 3 biometrics handle that unlock on the device. The web archive does not offer biometric unlock.</p>
   <p class="note">An older hash-only lock on the Android app stays closed, and the archive stays plaintext, until the first successful unlock moves it into the encrypted vault. That lock is secure only when the vault is present.</p>
 
-  <h2>Dictate</h2>
-  <p>Dictate is optional. STARLOG uses speech only when the device reports that on-device speech is available. It does not silently fall back to a cloud speech-to-text service, and it does not send that audio to a STARLOG server.</p>
-  <p class="note">A phone maker’s own speech service may still handle the audio. STARLOG does not control that service, and does not promise that vendor speech never leaves the phone.</p>
+  <h2>Speech</h2>
+  <p>Begin Log with Transcribe on appends words to the text field. That control asks for on-device speech recognition. STARLOG starts that only when the device reports an on-device engine (Android 12 or later). If it does not, the app says speech is unavailable and does not listen. A denied session says speech is denied. Too many requests says throttled. STARLOG does not switch to a cloud recognizer and does not retry with on-device recognition turned off.</p>
+  <p class="note">That engine belongs to the device maker or Google. Android's on-device speech API is documented not to use the network. STARLOG does not run that engine and does not receive a copy of anything it might send. This is not a promise that speech never leaves the phone.</p>
+  <p class="note">Microphone is used only when the user taps Begin log, Record Audio, or Record Video. Speech recognition runs only when the user begins a log with Transcribe on, and only if an on-device engine is available.</p>
 
   <footer>
     <p>Package <code>com.starlog.app</code></p>
