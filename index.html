@@ -11,47 +11,42 @@
   h2 { font-size: 1.15rem; margin-top: 1.75rem; }
   code { font-size: .95em; }
   .meta { color: #888; font-size: .9rem; margin-bottom: 2rem; }
-  footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #ccc; font-size: .9rem; }
-  @media (prefers-color-scheme: dark) {
-    footer { border-top-color: #444; }
-  }
 </style>
 </head>
 <body>
 <h1>STARLOG privacy policy</h1>
-<p class="meta">Package <code>com.starlog.app</code> · Updated 22 September 2026</p>
+<p class="meta">Package <code>com.starlog.app</code> · Personal log stored on the device</p>
 
-<p>STARLOG is a personal log. The Android app keeps entries on the device. The web archive stays in the browser you use. This page says what the app stores, and what it does with the microphone, camera, speech, export, PIN, and biometric unlock. It also says how an optional PIN treats the web archive.</p>
+<p>STARLOG is a personal log. Entries stay on the device. There is no STARLOG account and no STARLOG server for logs.</p>
 
-<h2>Entries stay on the device</h2>
-<p>Log text, tags, classification, stardate, officer or vessel name, audio, and video are stored in the app’s private storage on the device. There is no STARLOG account. There is no STARLOG server for logs. The web archive stays in the browser you use. STARLOG does not upload it.</p>
-<p>STARLOG does not sell data and does not show ads. It does not upload your log entries. Android backup and device-to-device transfer of app data are turned off.</p>
-
-<h2>Microphone and camera</h2>
-<ul>
-<li><strong>Microphone</strong> — used only when you tap Record Audio, Record Video, or Begin Log with Transcribe on.</li>
-<li><strong>Camera</strong> — used only when you tap Record Video.</li>
-</ul>
-<p>Audio and video you record stay on the device with the log.</p>
+<h2>What stays on the device</h2>
+<p>Log text, tags, classification, stardate, officer and vessel name, audio, and video are stored in the app's private storage. With no PIN they are plaintext. When a PIN is set they are encrypted at rest. Android backup and device-to-device transfer of this app's data are disabled.</p>
 
 <h2>Speech</h2>
-<p>Begin Log with Transcribe on is optional. STARLOG uses speech only when the device reports that on-device speech is available. The app does not silently fall back to a cloud speech-to-text service.</p>
-<p>STARLOG does not send that audio to a STARLOG server. A phone maker’s own speech service may still handle the audio. STARLOG does not control that service, and does not promise that vendor speech never leaves the phone.</p>
+<p>Begin Log with Transcribe on appends words to the text field. That control asks for on-device speech recognition. STARLOG starts that only when the device reports an on-device engine (Android 12 or later). If it does not, the app says speech is unavailable and does not listen. A denied session says speech is denied. Too many requests says throttled. STARLOG does not switch to a cloud recognizer and does not retry with on-device recognition turned off.</p>
+<p>That engine belongs to the device maker or Google. Android's on-device speech API is documented not to use the network. STARLOG does not run that engine and does not receive a copy of anything it might send. This is not a promise that speech never leaves the phone.</p>
 
-<h2>Export</h2>
-<p>A JSON copy, a file export, or the system share sheet runs only when you tap it. The JSON export is text and metadata only. Audio and video stay on the device and are not included in the JSON file.</p>
+<h2>Network</h2>
+<p>The release app does not request the Internet permission, and it does not call a STARLOG server. Debug builds may still allow the Flutter tool to attach. A speech service, if one were started, would run in another app. STARLOG does not start recognition unless the device reports an on-device engine.</p>
 
-<h2>PIN</h2>
-<p>You can set an optional PIN. STARLOG cannot recover a forgotten PIN.</p>
-<p><strong>Android app.</strong> When a PIN is set, the log archive is encrypted at rest with AES-256-GCM. Argon2id wraps a data key, and Android Keystore holds key material on the device. A wrong PIN fails the authentication tag, so the archive does not open. If you do not set a PIN, log entries stay on the device as plaintext. Clearing a PIN requires the current PIN. STARLOG warns you that clearing it writes the archive back as plaintext on the device.</p>
-<p>An older Android install that stored only a hash of the PIN was not encrypted. That lock stays closed, and the archive stays plaintext, until the first successful unlock moves it into the encrypted vault. STARLOG treats the lock as secure only when that vault is present.</p>
-<p><strong>Web archive.</strong> An optional PIN encrypts the archive at rest in that browser. WebCrypto derives a key with PBKDF2 and encrypts with AES-GCM. There is no STARLOG server for that archive. STARLOG treats it as secure only when a vault exists. A legacy hash-only lock stays locked, and the entries stay plaintext, until you migrate them into the vault. Clearing the PIN requires the current PIN and writes the archive back as plaintext in that browser.</p>
+<h2>Permissions</h2>
+<ul>
+<li><strong>Microphone</strong> — only when the user taps Begin log, Record Audio, or Record Video.</li>
+<li><strong>Camera</strong> — only when the user taps Begin log with video selected, or Record Video.</li>
+<li><strong>Speech recognition</strong> — only when the user begins a log with Transcribe on, and only if an on-device engine is available.</li>
+<li><strong>Biometric</strong> — only if the user arms sensor unlock after a PIN, and then taps Use biometric. The template stays on the device. STARLOG does not receive it.</li>
+</ul>
 
-<h2>Biometric unlock</h2>
-<p>Biometric unlock is optional on the Android app, and only after a PIN is set. It is not available for the web archive. Face or fingerprint can then unlock the app on this device. STARLOG does not receive face or fingerprint templates. Unlock uses the device Keystore and Class 3 biometrics only. STARLOG does not upload biometric data.</p>
-<p>The PIN still encrypts the archive at rest when it is set. Biometric unlock does not replace that PIN. Clearing the PIN still requires the current PIN, and STARLOG still warns you that the archive will be stored as plaintext.</p>
-<footer>
-  <p><a href="app.html">About STARLOG</a></p>
-</footer>
+<h2>Export and share</h2>
+<p>JSON copy, share, and the system share sheet run only when the user taps them. The file is a versioned text backup: entry fields, officer and vessel, and any transcript the user saved. Audio and video files are not included.</p>
+<p>SHARE AUDIO or SHARE VIDEO on one log sends that recording through the system share sheet, and only when the user taps it. Archive EXPORT offers those same controls when the log has a recording. After that share finishes, REMOVE FROM PADD can delete the recording from this device. It asks first. Cancel and a failed share leave the file. The log is not uploaded to a STARLOG server.</p>
+
+<h2>Lock</h2>
+<p>The PIN is optional. With no PIN, logs stay in plaintext on this device. When a PIN is set, logs, settings, and media are encrypted at rest. STARLOG cannot recover a forgotten PIN. Clearing the PIN requires the current PIN and stores the archive as plaintext again. An optional sensor unlock can be armed only after a PIN. It uses this device's biometric to unwrap the same data key. STARLOG does not receive a face or fingerprint template. If the sensor is unavailable, denied, or fails, the PIN keypad remains. The sensor cannot clear the PIN.</p>
+
+<h2>What STARLOG does not do</h2>
+<p>We do not sell data. We do not run ads. We do not upload logs to a STARLOG server.</p>
+
+<p>Package: <code>com.starlog.app</code></p>
 </body>
 </html>
